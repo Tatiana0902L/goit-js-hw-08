@@ -66,6 +66,26 @@ const images = [
 
 const gallery = document.querySelector('.gallery');
 
+const galleryMarkup = images
+    .map(({ preview, original, description }) => {
+        return `
+        <li class="gallery-item">
+         <a class="gallery-link" href="${original}">
+          <img
+           class="gallery-image"
+           src="${preview}"
+           data-source="${original}"
+           alt="${description}"
+          />
+         </a>
+        </li>
+        `;
+    })
+    
+    .join(``);
+
+    gallery.insertAdjacentHTML('beforeend', galleryMarkup);
+
 gallery.addEventListener('click', event => {
   event.preventDefault();
 
@@ -74,7 +94,6 @@ gallery.addEventListener('click', event => {
   }
 
   const largeImage = event.target.dataset.source;
-    console.log(largeImage);
 
     const instance = basicLightbox.create(`
     <img src="${largeImage}" width="800" height="600">
